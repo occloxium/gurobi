@@ -9,5 +9,5 @@ build-image:
     - docker build -t registry.git.rwth-aachen.de/zoomoid/docker-gurobi .
     - docker push registry.git.rwth-aachen.de/zoomoid/docker-gurobi
   tags: 
-    - occloxium-docker
+    - docker-builder
 
