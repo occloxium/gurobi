@@ -1,0 +1,13 @@
+stages:
+  - build
+
+build-image:
+  stage: build
+  image: docker:latest
+  script: 
+    - echo "$CI_JOB_TOKEN" | docker login registry.git.rwth-aachen.de --username gitlab-ci-token --password-stdin 
+    - docker build -t registry.git.rwth-aachen.de/zoomoid/docker-gurobi .
+    - docker push registry.git.rwth-aachen.de/zoomoid/docker-gurobi
+  tags: 
+    - occloxium-docker
+
