@@ -1,13 +1,12 @@
 FROM python:2.7-alpine
-MAINTAINER Julien Deruere <deruere.julien@gmail.com>
 
 ENV GUROBI_INSTALL /opt/gurobi
 ENV GUROBI_HOME $GUROBI_INSTALL/linux64
 ENV PATH $PATH:$GUROBI_HOME/bin
 ENV LD_LIBRARY_PATH $GUROBI_HOME/lib
 
-ARG GUROBI_MAJOR_VERSION=6.5
-ARG GUROBI_VERSION=6.5.2
+ARG GUROBI_MAJOR_VERSION=8.1
+ARG GUROBI_VERSION=8.1.1
 ARG user=gurobi
 ARG group=gurobi
 ARG uid=1000
@@ -24,7 +23,7 @@ RUN apk upgrade --update && \
     addgroup -g ${gid} ${group}                                           && \
     adduser -h /home/gurobi -u ${uid} -G ${group} -s /bin/bash -D ${user} && \
     # Install latest glibc
-    export GLIBC_VERSION=2.23-r3                                                                                                  && \
+    export GLIBC_VERSION=2.30                                                                                                     && \
     apk --no-cache add ca-certificates                                                                                            && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
     wget -P /tmp https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk       && \
@@ -44,14 +43,10 @@ RUN apk upgrade --update && \
     rm -rf /var/cache/apk/*                                && \
     rm -rf /tmp/*                                          && \
     rm -rf /var/log/*                                      && \
-    rm -rf /gurobi652                                      && \
+    rm -rf /gurobi811                                      && \
     rm /home/gurobi/gurobi${GUROBI_VERSION}_linux64.tar.gz && \
     # Remove obsolete packages
-    apk del             \
-      ca-certificates   \
-      gzip              \
-      curl              \
-      wget
+    apk del ca-certificates gzip curl wget
 
 COPY scripts/docker-entrypoint.sh ${GUROBI_HOME}/bin
 
