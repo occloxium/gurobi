@@ -51,7 +51,7 @@ RUN rm -rf ${GUROBI_HOME}/docs                             && \
     rm /home/gurobi/gurobi${GUROBI_VERSION}_linux64.tar.gz
     
 # Remove obsolete packages
-RUN apk del ca-certificates gzip curl wget
+# RUN apk del ca-certificates gzip curl wget
 
 COPY scripts/docker-entrypoint.sh ${GUROBI_HOME}/bin
 
