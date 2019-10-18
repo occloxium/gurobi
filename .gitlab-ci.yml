@@ -2,6 +2,8 @@ stages:
   - build
 
 build-image:
+  only:
+    - master
   stage: build
   image: docker:latest
   script: 
@@ -9,5 +11,17 @@ build-image:
     - docker build -t registry.git.rwth-aachen.de/zoomoid/docker-gurobi .
     - docker push registry.git.rwth-aachen.de/zoomoid/docker-gurobi
   tags: 
+    - docker-builder
+
+build-experimental-image:
+  except:
+    - master
+  stage: build
+  image: docker:latest
+  scripts:
+    - echo "$CI_JOB_TOKEN" | docker login registry.git.rwth-aachen.de --username gitlab-ci-token --password-stdin 
+    - docker build -t registry.git.rwth-aachen.de/zoomoid/docker-gurobi:experimental .
+    - docker push registry.git.rwth-aachen.de/zoomoid/docker-gurobi:experimental
+  tags:
     - docker-builder
 

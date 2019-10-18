@@ -50,8 +50,15 @@ RUN rm -rf ${GUROBI_HOME}/docs                             && \
     rm -rf /gurobi811                                      && \
     rm /home/gurobi/gurobi${GUROBI_VERSION}_linux64.tar.gz
     
-# Remove obsolete packages
-# RUN apk del ca-certificates gzip curl wget
+# We try to eliminate the Python 2.7 binary and the shell script
+# requiring it
+RUN rm ${GUROBI_HOME}/bin/python2.7                        && \
+    rm ${GUROBI_HOME}/bin/gurobi.sh
+
+# Add our custom gurobi.sh
+# this basically copies from the original but replaces the 
+# usage of the Python 2.7 binary shipped WITH gurobi 
+COPY scripts/gurobi.sh ${GUROBI_HOME}/bin
 
 COPY scripts/docker-entrypoint.sh ${GUROBI_HOME}/bin
 
