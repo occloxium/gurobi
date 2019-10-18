@@ -12,7 +12,7 @@ fi
 license=/home/gurobi/gurobi.lic
 echo "Please enter filename to run"
 echo "Mounted scripts available are:"
-ls -A --no-group --human-readable
+ls -Ah
 echo "Choose your model file to run:"
 read FILENAME
 echo
