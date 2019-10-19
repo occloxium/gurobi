@@ -16,7 +16,7 @@ echo
 if [ -z $MODEL ]; then
     RUN=$MODEL
 else
-    RUN=(./**model.py)
+    RUN=(./*/*model.py)
 fi
 echo "Running solver on $RUN"
 if [ -f $license ]; then
