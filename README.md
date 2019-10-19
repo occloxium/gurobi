@@ -4,22 +4,24 @@ This repository contains a Dockerfile to create a Docker image for solving linea
 # Usage
 
 ```
-docker run -e 'GUROBI_LICENSE=your-license-key' -v /path/to/license:/home/gurobi -v /path/to/scripts:/usr/local/gurobi/scripts --network 'host' sg2b/gurobi
+docker run -e 'GUROBI_LICENSE=your-license-key' -v /path/to/license:/home/gurobi -v /path/to/scripts:/usr/src/gurobi/scripts --network 'host' docker-gurobi
 ```
 
 # With docker-compose
 
 ```
-version: '2'
+version: '3'
 
 services:
   gurobi:
-    image: sg2b/gurobi
-    container_name: gurobi652
+    build: <path to Dockerfile>
+    image: docker-gurobi:latest
+    container_name: gurobi811
     environment:
       - 'GUROBI_LICENSE=your-license-key'
+      - 'VERBOSE=<DEBUG MODE?yes:no>'
     volumes:
       - /path/to/license:/home/gurobi
-      - /path/to/scripts:/usr/local/gurobi/scripts
+      - /path/to/scripts:/usr/src/gurobi/scripts
     network_mode: "host"
 ```
