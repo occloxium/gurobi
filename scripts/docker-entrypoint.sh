@@ -23,9 +23,9 @@ if [[ "$VERBOSE" = "yes" ]]; then
 fi
 license=/home/gurobi/gurobi.lic
 echo "Mounted scripts available are:"
-ls -rAh
+find . -name "*model.py"
 echo
-if [ -z $MODEL ]; then
+if ! [[ -z "$MODEL" ]]; then
     solve $MODEL
 else
     RUN=$(find . -name "*model.py")
