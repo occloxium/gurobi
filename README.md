@@ -3,6 +3,8 @@
 This repository contains a Dockerfile to create a Docker image for solving linear programming optimization problems with
 Gurobi. The image itself is NOT hosted on Docker Hub!
 
+NOTE that you have to have a floating license (i.e. a valid license server running and a connection to such) to run the image. Discovering this cost way too much time.
+
 # Usage
 
 ```
