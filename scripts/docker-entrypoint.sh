@@ -1,4 +1,16 @@
-#!/bin/sh
+#!/bin/bash
+
+solve () {
+    echo "Running solver on $1"
+    if [ -f $license ]; then
+        echo "Skipping license creation"
+        gurobi.sh $1
+    else
+        echo "Configure license $GUROBI_LICENSE"
+        echo -ne '\n' | grbgetkey $GUROBI_LICENSE
+        gurobi.sh $1
+    fi
+}
 
 set -e
 
@@ -10,17 +22,14 @@ if [[ "$VERBOSE" = "yes" ]]; then
     set -x
 fi
 license=/home/gurobi/gurobi.lic
-echo "Please enter filename to run"
 echo "Mounted scripts available are:"
-ls -A --no-group --human-readable
-echo "Choose your model file to run:"
-read FILENAME
+find . -name "*model.py"
 echo
-if [ -f $license ]; then
-    echo "Skipping license creation"
-    gurobi.sh $FILENAME
+if ! [[ -z "$MODEL" ]]; then
+    solve $MODEL
 else
-    echo "Configure license $GUROBI_LICENSE"
-    echo -ne '\n' | grbgetkey $GUROBI_LICENSE
-    gurobi.sh $FILENAME
+    RUN=$(find . -name "*model.py")
+    find . -name "*model.py"|while read model; do 
+        solve $model
+    done;
 fi
