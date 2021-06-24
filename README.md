@@ -1,5 +1,7 @@
 # docker-gurobi
 
+> **This project is deprecated due to a lack of willingness to maintain it. It was worth the try, I learned a lot in the process, but ultimately, I cannot afford a Gurobi licence that supports cgroup running, which is the limiting factor for this docker image. Use at your own risk!**
+
 This repository contains a Dockerfile to create a Docker image for solving linear programming optimization problems with
 Gurobi. The image itself is NOT hosted on Docker Hub!
 
